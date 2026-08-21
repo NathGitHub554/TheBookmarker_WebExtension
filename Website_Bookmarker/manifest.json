@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "version": "1.0",
+    "name": "The BOOKMARKER",
+    "icons": {
+        "48": "assets/Bookmark_ExtensionIcon.png",
+        "96": "assets/Bookmark_ExtensionIcon.png"
+    },
+
+    "action": {
+   "default_popup": "interface.html"
+ },
+
+    "permissions": ["activeTab"],
+ 
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["bookmarker_main.js"]
+        }
+    ]
+}
