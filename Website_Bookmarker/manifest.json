@@ -11,7 +11,7 @@
    "default_popup": "interface.html"
  },
 
-    "permissions": ["activeTab"],
+    "permissions": ["tabs"],
  
     "content_scripts": [
         {

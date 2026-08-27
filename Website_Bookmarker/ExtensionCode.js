@@ -6,7 +6,8 @@ function start() {
   console.log(btn);
 
   async function saveBookmark() {
-    const message = await chrome.runtime.sendMessage("getID");
+    const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
+    const message = await chrome.tabs.sendMessage(tab.id, 'getID');
     console.log(message);
 
     //define link same as above.
