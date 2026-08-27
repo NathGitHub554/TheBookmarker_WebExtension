@@ -3,20 +3,19 @@ function start() {
   // Posted by chintan adatiya, modified by community. See post 'Timeline' for change history
   // Retrieved 2026-08-19, License - CC BY-SA 3.0
   let btn = document.querySelector("#btn");
-  console.log(btn);
 
   async function saveBookmark() {
     const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
-    const message = await chrome.tabs.sendMessage(tab.id, 'getID');
+    const message = await chrome.tabs.sendMessage(tab.id, 'getInfo');
+    
     console.log(message);
-
+    
     //define link same as above.
     let pageLink = window.location.href;
     //recieve parentElement from content script
     let bookmarkLink = pageLink + "#" + parentID;
 
     let container = document.querySelector("#bookmarks");
-    console.log(container);
 
     let wrapper = document.createElement("div");
     wrapper.classList.add("bookmarkWrapper");

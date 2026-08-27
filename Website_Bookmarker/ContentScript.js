@@ -1,9 +1,13 @@
 function handleMessages(message, sender, sendResponse) {
-    if (message !== 'getID') return;
+    if (message !== 'getInfo') return;
 
     let parentID = window.getSelection().anchorNode.parentElement.id;
+    let pageLink = window.location.href;
 
-    sendResponse('this is a response for the message');
+    sendResponse({
+        parentID: parentID,
+        pageLink: pageLink
+    });
 
     return true;
 
