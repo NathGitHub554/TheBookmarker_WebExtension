@@ -1,19 +1,26 @@
 function start() {
-  // Source - https://stackoverflow.com/a/26308552
-  // Posted by chintan adatiya, modified by community. See post 'Timeline' for change history
-  // Retrieved 2026-08-19, License - CC BY-SA 3.0
+
+//Things to do:
+// 1. set content script so that when you click the link, it goes to that element on the page, without reloading
+// 2. Figure out a way to save bookmark links.
+
+//Future Update: grab closest section heading, so I have a id'd element to scroll down to. For example, if paragraph text is selected instead of a heading.
+
   let btn = document.querySelector("#btn");
 
   async function saveBookmark() {
     const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
     const message = await chrome.tabs.sendMessage(tab.id, 'getInfo');
     
-    console.log(message);
-    
-    //define link same as above.
-    let pageLink = window.location.href;
+    console.log("message.parentID = " + message.parentID);
+    console.log("message.pageLink = " + message.pageLink);
+
+    let pageLink = message.pageLink;
+    let parentID = message.parentID;
+
     //recieve parentElement from content script
     let bookmarkLink = pageLink + "#" + parentID;
+    console.log("bookmarkLink = " + bookmarkLink);
 
     let container = document.querySelector("#bookmarks");
 
