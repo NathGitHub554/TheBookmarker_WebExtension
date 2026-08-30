@@ -41,7 +41,7 @@ function start() {
   }
 
   btn.addEventListener("click", saveBookmark);
-}
+};
 
 window.addEventListener("load", start);
 
