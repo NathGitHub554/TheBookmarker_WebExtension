@@ -1,4 +1,5 @@
 function start() {
+let clickableLink;
 
 //Things to do:
 // 1. set content script so that when you click the link, it goes to that element on the page, without reloading
@@ -40,7 +41,16 @@ function start() {
     container.appendChild(wrapper);
   }
 
+  function clickLink() {
+    clickableLink = document.querySelectorAll(".link");
+    clickableLink.forEach(() => {
+      parentID.scrollIntoView();
+      console.log(parentID)
+    });
+  }
+
   btn.addEventListener("click", saveBookmark);
+  clickableLink.addEventListener('click', clickLink)
 };
 
 window.addEventListener("load", start);
