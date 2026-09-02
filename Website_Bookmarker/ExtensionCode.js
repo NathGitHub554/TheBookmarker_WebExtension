@@ -1,9 +1,9 @@
 function start() {
-let clickableLink = null;
 
 //Things to do:
-// 1. set content script so that when you click the link, it goes to that element on the page, without reloading
-// 2. Figure out a way to save bookmark links.
+// 1. set content script so that when you click the link, it goes to that element on the page, without reloading. For this to happen, another message needs to be sent to the content script so it will scroll on the page. //MORE WORK NEEDED FOR THIS PART, RETHINK SOME THINGS.//
+
+// 2. *** NEXT STEP *** Figure out a way to save bookmark links.
 
 //Future Update: grab closest section heading, so I have a id'd element to scroll down to. For example, if paragraph text is selected instead of a heading.
 
@@ -12,16 +12,13 @@ let clickableLink = null;
   async function saveBookmark() {
     const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
     const message = await chrome.tabs.sendMessage(tab.id, 'getInfo');
-    
-    console.log("message.parentID = " + message.parentID);
-    console.log("message.pageLink = " + message.pageLink);
 
     let pageLink = message.pageLink;
     let parentID = message.parentID;
+    console.log("*** parentID = ***" + parentID);
 
     //recieve parentElement from content script
     let bookmarkLink = pageLink + "#" + parentID;
-    console.log("bookmarkLink = " + bookmarkLink);
 
     let container = document.querySelector("#bookmarks");
 
@@ -39,19 +36,21 @@ let clickableLink = null;
     //add elements to their parent elements.
     wrapper.appendChild(link);
     container.appendChild(wrapper);
-    clickableLink = document.querySelectorAll(".link");
-    return clickableLink;
+    
   }
 
-  function clickLink(clickableLink) {
+  function getLinks(parentID) {
+  let clickableLink = document.querySelectorAll(".link");
+
     clickableLink.forEach(() => {
-      parentID.scrollIntoView();
+        clickableLink.addEventListener('click', parentID.scrollIntoView());
+
     });
-  }
 
-  clickableLink.addEventListener('click', clickLink);
-  console.log(clickableLink);
 
+  };
+
+  getLinks();
   btn.addEventListener("click", saveBookmark);
 };
 
